@@ -7,7 +7,7 @@ export class DeleteTaskController {
 
     const user = usersApp.find((user) => userId === user.id);
 
-    const indexUser = user?.tasks.findIndex((task) => task.id === id);
+    const indexUser = user?.tasks.findIndex((task) => task.id === id) as number;
 
     user?.tasks.splice(indexUser, 1);
 
