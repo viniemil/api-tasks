@@ -12,10 +12,10 @@ export class EditTaskController {
 
     const user = usersApp.find((user) => userId === user.id);
 
-    const taskFound = user?.tasks.find((trans) => id === trans.id);
+    const taskFound = user?.tasks.find((task) => id === task.id);
 
     taskFound?.taskUpdate(title, description);
 
-    return response.status(200).json(taskFound);
+    return response.status(200).json(taskFound?.toReturn());
   }
 }

@@ -43,7 +43,7 @@ export class Task {
       id: this._id,
       title: this._title,
       description: this._description,
-      archived: this.archived,
+      archived: this._archived,
     };
   }
 }
