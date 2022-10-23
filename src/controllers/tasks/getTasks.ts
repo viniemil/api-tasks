@@ -13,6 +13,7 @@ export class BalanceTransactionController {
         id: task.id,
         title: task.title,
         description: task.description,
+        archived: task.archived,
       };
     });
     console.log(tasks);

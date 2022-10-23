@@ -28,7 +28,8 @@ export class CreateNewTaskController {
         return {
           id: task.id,
           title: task.title,
-          value: task.description,
+          description: task.description,
+          archived: task.archived,
         };
       }),
     });

@@ -4,11 +4,13 @@ export class Task {
   private _id: string;
   private _title: string;
   private _description: string;
+  private _archived: boolean;
 
   constructor(title: string, description: string) {
     this._id = crypto.randomUUID();
     this._title = title;
     this._description = description;
+    this._archived = false;
   }
 
   get id() {
@@ -23,6 +25,10 @@ export class Task {
     return this._description;
   }
 
+  get archived() {
+    return this._archived;
+  }
+
   transactionUpdate(title: string, description: string) {
     this._title = title;
     this._description = description;
@@ -33,6 +39,7 @@ export class Task {
       id: this._id,
       title: this._title,
       description: this._description,
+      archived: this.archived,
     };
   }
 }
