@@ -12,6 +12,7 @@ import { BalanceTransactionController } from "./controllers/tasks/getTasks";
 import { ValidateUserMiddleware } from "./middlewares/validateUser";
 import { validateTaskMiddlewares } from "./middlewares/validateTask";
 import { ValidateUserEmailMiddleware } from "./middlewares/validadeUserEmail";
+import { ArqhiveTaskController } from "./controllers/tasks/archiveTask";
 
 export default (app: Express) => {
   app.post(
@@ -52,6 +53,13 @@ export default (app: Express) => {
     new ValidateUserMiddleware().validateUser,
     new validateTaskMiddlewares().validateTask,
     new EditTaskController().ediTask
+  );
+
+  app.put(
+    "/user/:userId/tasks/:id/archived",
+    new ValidateUserMiddleware().validateUser,
+    new validateTaskMiddlewares().validateTask,
+    new ArqhiveTaskController().archiveTask
   );
   app.delete(
     "/user/:userId/tasks/:id",

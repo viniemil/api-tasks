@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { usersApp } from "../../dataBase/users";
 
-export class EditTaskController {
-  ediTask(request: Request, response: Response) {
+export class ArqhiveTaskController {
+  archiveTask(request: Request, response: Response) {
     const { userId, id } = request.params;
-    const { title, description } = request.body;
+    const { archived } = request.body;
 
-    if (!title || !description) {
+    if (!archived) {
       return response.status(400).json({ message: "Dados inválidos" });
     }
 
@@ -14,7 +14,7 @@ export class EditTaskController {
 
     const taskFound = user?.tasks.find((trans) => id === trans.id);
 
-    taskFound?.taskUpdate(title, description);
+    taskFound?.archivedTask(archived);
 
     return response.status(200).json(taskFound);
   }

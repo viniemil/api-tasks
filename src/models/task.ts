@@ -29,9 +29,13 @@ export class Task {
     return this._archived;
   }
 
-  transactionUpdate(title: string, description: string) {
+  taskUpdate(title: string, description: string) {
     this._title = title;
     this._description = description;
+  }
+
+  archivedTask(status: boolean) {
+    this._archived = status;
   }
 
   toReturn() {
