@@ -38,6 +38,13 @@ export class Task {
     this._archived = status;
   }
 
+  static create(id: string, title: string, description: string): Task {
+    const task = new Task(title, description);
+    task._id = id;
+
+    return task;
+  }
+
   toReturn() {
     return {
       id: this._id,

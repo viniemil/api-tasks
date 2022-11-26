@@ -1,5 +1,4 @@
 import crypto from "crypto";
-import { request } from "https";
 import { Task } from "./task";
 
 export class User {
@@ -9,7 +8,7 @@ export class User {
   private _cpf: string;
   private _email: string;
   private _age: number;
-  private _tasks: Task[] = [];
+  private _tasks: Task[];
 
   constructor(
     password: string,
@@ -24,6 +23,7 @@ export class User {
     this._cpf = cpf;
     this._email = email;
     this._age = age;
+    this._tasks = [];
   }
 
   get id() {
@@ -46,12 +46,37 @@ export class User {
   get age() {
     return this._age;
   }
-  get tasks() {
-    return this._tasks;
+  get tasks(): Task[] {
+    return [...this._tasks];
   }
-  userUpdate(name: string, age: number) {
-    this._name = name;
-    this._age = age;
+
+  static create(
+    id: string,
+    password: string,
+    name: string,
+    age: number,
+    cpf: string,
+    email: string,
+    tasks?: Task[]
+  ): User {
+    const user = new User(password, name, cpf, email, age);
+    user._id = id;
+    user._password = password;
+    user._email = email;
+    user._cpf = cpf;
+    user._age = age;
+
+    if (tasks) {
+      user._tasks = tasks;
+    }
+    return user;
+  }
+
+  userUpdate(name?: string, age?: number, password?: string, email?: string) {
+    (this._name = name ?? this._name),
+      (this._age = age ?? this._age),
+      (this._password = password ?? this._password),
+      (this._email = email ?? this._email);
   }
 
   toReturn() {
@@ -62,6 +87,7 @@ export class User {
       cpf: this._cpf,
       email: this._email,
       age: this._age,
+      tasks: this._tasks.map((task) => task.toReturn()),
     };
   }
 }

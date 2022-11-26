@@ -1,18 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import { usersApp } from "../dataBase/users";
 import { User } from "../models/user";
+import { UserRepository } from "../repositories/user.repository";
 
 export class ValidateUserMiddleware {
-  validateUser(request: Request, response: Response, next: NextFunction) {
+  async validateUser(request: Request, response: Response, next: NextFunction) {
     const { userId, id } = request.params;
 
-    const user = usersApp.find(
-      (user: User) => userId === user.id || id === user.id
-    );
+    const repository = new UserRepository();
 
-    if (!user) {
-      return response.status(404).json({ message: "Usuário não encontrado." });
+    try {
+      await repository.findByIdUser(userId);
+      return next();
+    } catch (error: any) {
+      return response.status(500).json({ message: "User not found." });
     }
-    return next();
   }
 }
